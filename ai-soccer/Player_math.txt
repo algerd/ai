@@ -1,0 +1,62 @@
+﻿FieldPlayer:
+
+	Каждый таки обновляется положение игрока:
+	
+	update() {
+        1. Вычислить вектор силы движения игрока
+        steering.calculate();
+
+        //Если нет силы, приложенной к игроку, замедлять игрока с фиксированным замедлением brakingRate = 0.8
+		// Если так, то надо обрубить большинство последующих вычислений!!! пункты 2-5
+        if (steering.getSteeringForce().isZero()) {
+            final double brakingRate = 0.8;
+            velocity.mul(brakingRate);
+        }
+		else {
+			2. Развернуть игрока по направлению приложенной к нему силе(обновить вектор heading), но не более заданной величины поворота за такт
+			double turningForce = steering.sideComponent();
+			turningForce = Utils.clamp(turningForce, -ParamLoader.instance.PlayerMaxTurnRate, ParamLoader.instance.PlayerMaxTurnRate);
+			Transformation.rotateAroundOrigin(heading, turningForce);
+
+			3. Направить вектор скорости в направлении heading (силы) и пересчитать перпендикуляр направления
+			velocity = heading.muln(velocity.length());       
+
+			4. Вычислить добавленный вектор скорости (ускорение) a = heading * |heading|*|steering| / mass
+			// accel = heading * |heading|*|steering| / mass    |heading|*|steering| - скалярная разность векторов heading и steering
+			Vector accel = heading.muln(steering.forwardComponent()/ mass);
+			
+			5. Вычислить результирующий вектор скорости игрока
+			velocity.add(accel);
+			//make sure player does not exceed maximum velocity
+			velocity.truncate(maxSpeed);
+		}
+		6. Обновить позицию по вектору скорости pos = pos + velocity
+        position.add(velocity);	
+    }
+	
+	Движение игроков сделано достаточно реалистично и оно учитывает:
+	- ориентацию игрока по направлению движения (направленной силы)
+	- скорость разворота по направлению движения
+	- ускорение игрока не мгновенное, аучитывает его массу и осуществляется по законам физики.
+	- ускорение в зависимости от совпадения направления движения и силы. 
+		Если игрок недостаточно развернулся, то его ускорение будет меньше. Т.е. при развороте ускорение меньше.
+	- скорость игрока определяется константами
+		PlayerMass                      3.0
+		PlayerMaxForce                  1.0
+		PlayerMaxSpeedWithBall          1.2
+		PlayerMaxSpeedWithoutBall       1.6
+		PlayerMaxTurnRate               0.4
+		
+	Для рендеринга используются следующие данные: 	
+	 - игроков: список трансформировнных векторов вершин изображения игрока: 
+		- vecPlayerVBTrans  = Transformation.worldTransform(
+				vecPlayerVB, - вершины 
+                position, - положение !!!
+                heading(), - направление !!!!
+                scale()); - масштаб
+		position и heading - главные данные, которые должны генерироваться симом. 
+		Все остальные данные производные от них и они могут быть получены при рендеринге:
+			vecPlayerVB - список векторов вершин, чисто рендеринговая инфа
+			scale - константа
+	
+	

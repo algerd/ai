@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="WestWorld_85">
+  <ClassDiagramComponents>
+    <Class name="BaseGameEntity" package="FSM" visibility="public" isAbstract="true" xPosition="288.0" yPosition="20.0">
+      <Fields>
+        <Field name="entity" type="EntityEnum" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="EntityEnum" name="ent"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getEntity" returnType="EntityEnum" visibility="public"/>
+        <Method name="update" returnType="void" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Class>
+    <Class name="Main" package="FSM" visibility="public" xPosition="8.0" yPosition="153.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GoHomeAndSleepTilRested" package="FSM.MinerStates" visibility="public" xPosition="1540.0" yPosition="383.0">
+      <Fields>
+        <Field name="instance" type="GoHomeAndSleepTilRested" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="clone" returnType="Object" visibility="protected"/>
+        <Method name="getInstance" returnType="GoHomeAndSleepTilRested" visibility="public" isStatic="true"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MinersWife" package="FSM" visibility="public" xPosition="254.0" yPosition="284.0">
+      <Fields>
+        <Field name="stateMachine" type="StateMachine&lt;MinersWife&gt;" visibility="private"/>
+        <Field name="location" type="LocationEnum" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="EntityEnum" name="entity"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="update" returnType="void" visibility="public"/>
+        <Method name="getStateMachine" returnType="StateMachine&lt;MinersWife&gt;" visibility="public"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public"/>
+        <Method name="setLocation" returnType="void" visibility="public">
+          <Argument type="LocationEnum" name="loc"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VisitBathroom" package="FSM.MinersWifeStates" visibility="public" xPosition="1262.0" yPosition="383.0">
+      <Fields>
+        <Field name="instance" type="VisitBathroom" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="clone" returnType="Object" visibility="protected"/>
+        <Method name="getInstance" returnType="VisitBathroom" visibility="public" isStatic="true"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="MinersWife" name="wife"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public">
+          <Argument type="MinersWife" name="wife"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public">
+          <Argument type="MinersWife" name="wife"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="WifesGlobalState" package="FSM.MinersWifeStates" visibility="public" xPosition="984.0" yPosition="383.0">
+      <Fields>
+        <Field name="instance" type="WifesGlobalState" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="clone" returnType="Object" visibility="protected"/>
+        <Method name="getInstance" returnType="WifesGlobalState" visibility="public" isStatic="true"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="MinersWife" name="wife"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public">
+          <Argument type="MinersWife" name="wife"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public">
+          <Argument type="MinersWife" name="wife"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="State" package="FSM" visibility="public" isAbstract="true" xPosition="1128.0" yPosition="30.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="enter" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="T" name="var"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="T" name="var"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="T" name="var"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="StateMachine" package="FSM" visibility="public" xPosition="643.0" yPosition="196.0">
+      <Fields>
+        <Field name="owner" type="T" visibility="private"/>
+        <Field name="currentState" type="State&lt;T&gt;" visibility="private"/>
+        <Field name="previousState" type="State&lt;T&gt;" visibility="private"/>
+        <Field name="globalState" type="State&lt;T&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="T" name="owner"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setCurrentState" returnType="void" visibility="public">
+          <Argument type="State&lt;T&gt;" name="s"/>
+        </Method>
+        <Method name="setGlobalState" returnType="void" visibility="public">
+          <Argument type="State&lt;T&gt;" name="s"/>
+        </Method>
+        <Method name="setPreviousState" returnType="void" visibility="public">
+          <Argument type="State&lt;T&gt;" name="s"/>
+        </Method>
+        <Method name="update" returnType="void" visibility="public"/>
+        <Method name="changeState" returnType="void" visibility="public">
+          <Argument type="State&lt;T&gt;" name="newState"/>
+        </Method>
+        <Method name="revertToPreviousState" returnType="void" visibility="public"/>
+        <Method name="isInState" returnType="boolean" visibility="public">
+          <Argument type="State&lt;T&gt;" name="state"/>
+        </Method>
+        <Method name="getCurrentState" returnType="State&lt;T&gt;" visibility="public"/>
+        <Method name="getGlobalState" returnType="State&lt;T&gt;" visibility="public"/>
+        <Method name="getPreviousState" returnType="State&lt;T&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Enum name="EntityEnum" package="FSM" visibility="public" xPosition="8.0" yPosition="20.0">
+      <Literals>
+        <Literal name="MINER_BOB"/>
+        <Literal name="ELSA"/>
+      </Literals>
+    </Enum>
+    <Enum name="LocationEnum" package="FSM" visibility="public" xPosition="8.0" yPosition="318.0">
+      <Literals>
+        <Literal name="SHACK"/>
+        <Literal name="GOLDMINE"/>
+        <Literal name="BANK"/>
+        <Literal name="SALOON"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="currentState" source="FSM.StateMachine" target="FSM.State" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinersWife" target="FSM.BaseGameEntity"/>
+    <UseRelation source="FSM.MinerStates.GoHomeAndSleepTilRested" target="FSM.MinerStates.GoHomeAndSleepTilRested" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="stateMachine" source="FSM.MinersWife" target="FSM.StateMachine" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinersWifeStates.VisitBathroom" target="FSM.MinersWifeStates.VisitBathroom" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="FSM.MinerStates.GoHomeAndSleepTilRested" target="FSM.MinerStates.GoHomeAndSleepTilRested" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="previousState" source="FSM.StateMachine" target="FSM.State" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="FSM.MinerStates.VisitBankAndDepositGold" target="FSM.MinerStates.VisitBankAndDepositGold" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinersWife" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="entity" source="FSM.BaseGameEntity" target="FSM.EntityEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinersWifeStates.VisitBathroom" target="FSM.MinersWife" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.GoHomeAndSleepTilRested" target="FSM.State"/>
+    <HasRelation name="location" source="FSM.MinersWife" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.VisitBankAndDepositGold" target="FSM.State"/>
+    <IsRelation name="is" source="FSM.MinerStates.QuenchThirst" target="FSM.State"/>
+    <UseRelation source="FSM.MinersWifeStates.WifesGlobalState" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="globalState" source="FSM.StateMachine" target="FSM.State" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.QuenchThirst" target="FSM.Miner" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="FSM.MinerStates.QuenchThirst" target="FSM.MinerStates.QuenchThirst" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinersWifeStates.DoHouseWork" target="FSM.State"/>
+    <HasRelation name="location" source="FSM.Miner" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinersWifeStates.WifesGlobalState" target="FSM.State"/>
+    <UseRelation source="FSM.MinersWifeStates.DoHouseWork" target="FSM.MinersWifeStates.DoHouseWork" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.Miner" target="FSM.StateMachine" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="FSM.MinersWifeStates.WifesGlobalState" target="FSM.State" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinersWifeStates.DoHouseWork" target="FSM.MinersWife" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.GoHomeAndSleepTilRested" target="FSM.Miner" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinersWifeStates.VisitBathroom" target="FSM.State"/>
+    <HasRelation name="instance" source="FSM.MinersWifeStates.VisitBathroom" target="FSM.MinersWifeStates.VisitBathroom" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinersWife" target="FSM.StateMachine" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.EnterMineAndDigForNugget" target="FSM.Miner" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.Miner" target="FSM.BaseGameEntity"/>
+    <UseRelation source="FSM.BaseGameEntity" target="FSM.EntityEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="FSM.MinerStates.EnterMineAndDigForNugget" target="FSM.MinerStates.EnterMineAndDigForNugget" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinersWifeStates.WifesGlobalState" target="FSM.MinersWife" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.EnterMineAndDigForNugget" target="FSM.State"/>
+    <UseRelation source="FSM.StateMachine" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.VisitBankAndDepositGold" target="FSM.MinerStates.VisitBankAndDepositGold" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.Miner" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

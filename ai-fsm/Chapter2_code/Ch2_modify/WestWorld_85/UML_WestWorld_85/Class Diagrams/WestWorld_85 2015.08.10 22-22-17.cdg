@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="WestWorld_85">
+  <ClassDiagramComponents>
+    <Class name="BaseGameEntity" package="FSM" visibility="public" isAbstract="true" xPosition="365.0" yPosition="39.0">
+      <Fields>
+        <Field name="entity" type="EntityEnum" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="EntityEnum" name="ent"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getEntity" returnType="EntityEnum" visibility="public"/>
+        <Method name="update" returnType="void" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Class>
+    <Class name="Main" package="FSM" visibility="public" xPosition="26.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Miner" package="FSM" visibility="public" xPosition="358.0" yPosition="295.0">
+      <Fields>
+        <Field name="COMFORT_LEVEL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="MAX_NUGGETS" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="THIRST_LEVEL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="TIREDNESS_LEVEL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="currentState" type="State" visibility="private"/>
+        <Field name="location" type="LocationEnum" visibility="private"/>
+        <Field name="goldCarried" type="int" visibility="private"/>
+        <Field name="moneyInBank" type="int" visibility="private"/>
+        <Field name="thirst" type="int" visibility="private"/>
+        <Field name="fatigue" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="EntityEnum" name="entity"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="update" returnType="void" visibility="public"/>
+        <Method name="changeState" returnType="void" visibility="public">
+          <Argument type="State" name="newState"/>
+        </Method>
+        <Method name="addToGoldCarried" returnType="void" visibility="public">
+          <Argument type="int" name="val"/>
+        </Method>
+        <Method name="addToWealth" returnType="void" visibility="public">
+          <Argument type="int" name="val"/>
+        </Method>
+        <Method name="buyAndDrinkAWhiskey" returnType="void" visibility="public"/>
+        <Method name="decreaseFatigue" returnType="void" visibility="public"/>
+        <Method name="increaseFatigue" returnType="void" visibility="public"/>
+        <Method name="isThirst" returnType="boolean" visibility="public"/>
+        <Method name="isFatigued" returnType="boolean" visibility="public"/>
+        <Method name="isPocketsFull" returnType="boolean" visibility="public"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public"/>
+        <Method name="setLocation" returnType="void" visibility="public">
+          <Argument type="LocationEnum" name="loc"/>
+        </Method>
+        <Method name="getGoldCarried" returnType="int" visibility="public"/>
+        <Method name="setGoldCarried" returnType="void" visibility="public">
+          <Argument type="int" name="val"/>
+        </Method>
+        <Method name="getMoneyInBank" returnType="int" visibility="public"/>
+        <Method name="setMoneyInBank" returnType="void" visibility="public">
+          <Argument type="int" name="val"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EnterMineAndDigForNugget" package="FSM.MinerStates" visibility="public" xPosition="1066.0" yPosition="440.0">
+      <Fields>
+        <Field name="instance" type="EnterMineAndDigForNugget" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="clone" returnType="Object" visibility="protected"/>
+        <Method name="Instance" returnType="EnterMineAndDigForNugget" visibility="public" isStatic="true"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GoHomeAndSleepTilRested" package="FSM.MinerStates" visibility="public" xPosition="1422.0" yPosition="440.0">
+      <Fields>
+        <Field name="instance" type="GoHomeAndSleepTilRested" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="clone" returnType="Object" visibility="protected"/>
+        <Method name="Instance" returnType="GoHomeAndSleepTilRested" visibility="public" isStatic="true"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="QuenchThirst" package="FSM.MinerStates" visibility="public" xPosition="1774.0" yPosition="440.0">
+      <Fields>
+        <Field name="instance" type="QuenchThirst" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="clone" returnType="Object" visibility="protected"/>
+        <Method name="Instance" returnType="QuenchThirst" visibility="public" isStatic="true"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VisitBankAndDepositGold" package="FSM.MinerStates" visibility="public" xPosition="731.0" yPosition="440.0">
+      <Fields>
+        <Field name="instance" type="VisitBankAndDepositGold" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="clone" returnType="Object" visibility="protected"/>
+        <Method name="Instance" returnType="VisitBankAndDepositGold" visibility="public" isStatic="true"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public">
+          <Argument type="Miner" name="miner"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="State" package="FSM" visibility="public" isAbstract="true" xPosition="1066.0" yPosition="49.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="enter" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="T" name="var"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="T" name="var"/>
+        </Method>
+        <Method name="exit" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="T" name="var"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Enum name="EntityEnum" package="FSM" visibility="public" xPosition="61.0" yPosition="196.0">
+      <Literals>
+        <Literal name="MINER_BOB"/>
+        <Literal name="ELSA"/>
+      </Literals>
+    </Enum>
+    <Enum name="LocationEnum" package="FSM" visibility="public" xPosition="26.0" yPosition="377.0">
+      <Literals>
+        <Literal name="SHACK"/>
+        <Literal name="GOLDMINE"/>
+        <Literal name="BANK"/>
+        <Literal name="SALOON"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="instance" source="FSM.MinerStates.EnterMineAndDigForNugget" target="FSM.MinerStates.EnterMineAndDigForNugget" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.VisitBankAndDepositGold" target="FSM.MinerStates.VisitBankAndDepositGold" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.EnterMineAndDigForNugget" target="FSM.Miner" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="FSM.MinerStates.VisitBankAndDepositGold" target="FSM.MinerStates.VisitBankAndDepositGold" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.EnterMineAndDigForNugget" target="FSM.State"/>
+    <HasRelation name="instance" source="FSM.MinerStates.GoHomeAndSleepTilRested" target="FSM.MinerStates.GoHomeAndSleepTilRested" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.GoHomeAndSleepTilRested" target="FSM.MinerStates.GoHomeAndSleepTilRested" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.BaseGameEntity" target="FSM.EntityEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.QuenchThirst" target="FSM.State"/>
+    <HasRelation name="location" source="FSM.Miner" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="entity" source="FSM.BaseGameEntity" target="FSM.EntityEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.Miner" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.EnterMineAndDigForNugget" target="FSM.MinerStates.EnterMineAndDigForNugget" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.Miner" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.GoHomeAndSleepTilRested" target="FSM.Miner" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.VisitBankAndDepositGold" target="FSM.Miner" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.QuenchThirst" target="FSM.Miner" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.GoHomeAndSleepTilRested" target="FSM.State"/>
+    <UseRelation source="FSM.MinerStates.QuenchThirst" target="FSM.MinerStates.QuenchThirst" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.Miner" target="FSM.BaseGameEntity"/>
+    <IsRelation name="is" source="FSM.MinerStates.VisitBankAndDepositGold" target="FSM.State"/>
+    <HasRelation name="instance" source="FSM.MinerStates.QuenchThirst" target="FSM.MinerStates.QuenchThirst" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="currentState" source="FSM.Miner" target="FSM.State" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

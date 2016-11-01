@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="FSM_1miner">
+  <ClassDiagramComponents>
+    <Class name="GameEntity" package="FSM" visibility="public" isAbstract="true" xPosition="60.0" yPosition="20.0">
+      <Fields>
+        <Field name="entity" type="EntityEnum" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="EntityEnum" name="ent"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getEntity" returnType="EntityEnum" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Miner" package="FSM" visibility="public" xPosition="48.0" yPosition="252.0">
+      <Fields>
+        <Field name="COMFORT_LEVEL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="MAX_NUGGETS" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="THIRST_LEVEL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="TIREDNESS_LEVEL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="REST_LEVEL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="HUNGER_LEVEL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="goldCarried" type="int" visibility="private"/>
+        <Field name="moneyInBank" type="int" visibility="private"/>
+        <Field name="thirst" type="int" visibility="private"/>
+        <Field name="hunger" type="int" visibility="private"/>
+        <Field name="fatigue" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="EntityEnum" name="entity"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="isThirst" returnType="boolean" visibility="public"/>
+        <Method name="isFatigued" returnType="boolean" visibility="public"/>
+        <Method name="isRested" returnType="boolean" visibility="public"/>
+        <Method name="isHungry" returnType="boolean" visibility="public"/>
+        <Method name="isPocketsFull" returnType="boolean" visibility="public"/>
+        <Method name="isEnoughMoney" returnType="boolean" visibility="public"/>
+        <Method name="getGoldCarried" returnType="int" visibility="public"/>
+        <Method name="getMoneyInBank" returnType="int" visibility="public"/>
+        <Method name="getFatigue" returnType="int" visibility="public"/>
+        <Method name="getHunger" returnType="int" visibility="public"/>
+        <Method name="getThirst" returnType="int" visibility="public"/>
+        <Method name="setMoneyInBank" returnType="void" visibility="public">
+          <Argument type="int" name="money"/>
+        </Method>
+        <Method name="setThirst" returnType="void" visibility="public">
+          <Argument type="int" name="thirst"/>
+        </Method>
+        <Method name="setHunger" returnType="void" visibility="public">
+          <Argument type="int" name="hunger"/>
+        </Method>
+        <Method name="setFatigue" returnType="void" visibility="public">
+          <Argument type="int" name="fatigue"/>
+        </Method>
+        <Method name="setGoldCarried" returnType="void" visibility="public">
+          <Argument type="int" name="gold"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DigNugget" package="FSM.MinerStates" visibility="public" xPosition="863.0" yPosition="805.0">
+      <Fields>
+        <Field name="miner" type="Miner" visibility="private"/>
+        <Field name="location" type="LocationEnum" visibility="private" isFinal="true"/>
+        <Field name="transitionArray" type="MinerStateEnum[]" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+        <Constructor visibility="package">
+          <Argument type="Miner" name="miner"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="enterCondition" returnType="boolean" visibility="public"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="LocationEnum" name="prevLocation"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="exitCondition" returnType="boolean" visibility="public"/>
+        <Method name="exit" returnType="void" visibility="public"/>
+        <Method name="getTransitionArray" returnType="MinerStateEnum[]" visibility="public"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Eating" package="FSM.MinerStates" visibility="public" xPosition="1466.0" yPosition="350.0">
+      <Fields>
+        <Field name="miner" type="Miner" visibility="private"/>
+        <Field name="location" type="LocationEnum" visibility="private" isFinal="true"/>
+        <Field name="transitionArray" type="MinerStateEnum[]" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="package"/>
+        <Constructor visibility="package">
+          <Argument type="Miner" name="miner"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="enterCondition" returnType="boolean" visibility="public"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="LocationEnum" name="prevlocation"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="exitCondition" returnType="boolean" visibility="public"/>
+        <Method name="exit" returnType="void" visibility="public"/>
+        <Method name="getTransitionArray" returnType="MinerStateEnum[]" visibility="public"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GoHome" package="FSM.MinerStates" visibility="public" xPosition="1111.0" yPosition="0.0">
+      <Fields>
+        <Field name="miner" type="Miner" visibility="private"/>
+        <Field name="location" type="LocationEnum" visibility="private" isFinal="true"/>
+        <Field name="transitionArray" type="MinerStateEnum[]" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="package"/>
+        <Constructor visibility="package">
+          <Argument type="Miner" name="miner"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="enterCondition" returnType="boolean" visibility="public"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="LocationEnum" name="prevlocation"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="exitCondition" returnType="boolean" visibility="public"/>
+        <Method name="exit" returnType="void" visibility="public"/>
+        <Method name="getTransitionArray" returnType="MinerStateEnum[]" visibility="public"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="MinerStateMachine" package="FSM.MinerStates" visibility="public" xPosition="455.0" yPosition="331.0">
+      <Fields>
+        <Field name="miner" type="Miner" visibility="private"/>
+        <Field name="currentState" type="State" visibility="private"/>
+        <Field name="previousState" type="State" visibility="private"/>
+        <Field name="stateMap" type="Map&lt;MinerStateEnum, State&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+        <Constructor visibility="public">
+          <Argument type="Miner" name="miner"/>
+          <Argument type="MinerStateEnum" name="state"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="EntityEnum" name="entity"/>
+          <Argument type="MinerStateEnum" name="state"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNewState" returnType="State" visibility="protected">
+          <Argument type="MinerStateEnum" name="stateEnum"/>
+        </Method>
+        <Method name="getState" returnType="State" visibility="protected">
+          <Argument type="MinerStateEnum" name="stateEnum"/>
+        </Method>
+        <Method name="initState" returnType="void" visibility="protected">
+          <Argument type="MinerStateEnum" name="stateEnum"/>
+        </Method>
+        <Method name="update" returnType="void" visibility="public"/>
+        <Method name="changeState" returnType="void" visibility="protected">
+          <Argument type="State" name="newState"/>
+        </Method>
+        <Method name="revertToPreviousState" returnType="void" visibility="protected"/>
+        <Method name="getCurrentState" returnType="State" visibility="protected"/>
+        <Method name="getPreviousState" returnType="State" visibility="protected"/>
+        <Method name="setCurrentState" returnType="void" visibility="protected">
+          <Argument type="State" name="s"/>
+        </Method>
+        <Method name="setPreviousState" returnType="void" visibility="protected">
+          <Argument type="State" name="s"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="QuenchThirst" package="FSM.MinerStates" visibility="public" xPosition="1173.0" yPosition="805.0">
+      <Fields>
+        <Field name="miner" type="Miner" visibility="private"/>
+        <Field name="location" type="LocationEnum" visibility="private" isFinal="true"/>
+        <Field name="transitionArray" type="MinerStateEnum[]" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="package"/>
+        <Constructor visibility="package">
+          <Argument type="Miner" name="miner"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="enterCondition" returnType="boolean" visibility="public"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="LocationEnum" name="prevlocation"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="exitCondition" returnType="boolean" visibility="public"/>
+        <Method name="exit" returnType="void" visibility="public"/>
+        <Method name="getTransitionArray" returnType="MinerStateEnum[]" visibility="public"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Sleep" package="FSM.MinerStates" visibility="public" xPosition="1466.0" yPosition="805.0">
+      <Fields>
+        <Field name="miner" type="Miner" visibility="private"/>
+        <Field name="location" type="LocationEnum" visibility="private" isFinal="true"/>
+        <Field name="transitionArray" type="MinerStateEnum[]" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="package"/>
+        <Constructor visibility="package">
+          <Argument type="Miner" name="miner"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="enterCondition" returnType="boolean" visibility="public"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="LocationEnum" name="prevlocation"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="exitCondition" returnType="boolean" visibility="public"/>
+        <Method name="exit" returnType="void" visibility="public"/>
+        <Method name="getTransitionArray" returnType="MinerStateEnum[]" visibility="public"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="VisitBank" package="FSM.MinerStates" visibility="public" xPosition="1466.0" yPosition="0.0">
+      <Fields>
+        <Field name="miner" type="Miner" visibility="private"/>
+        <Field name="location" type="LocationEnum" visibility="private" isFinal="true"/>
+        <Field name="transitionArray" type="MinerStateEnum[]" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="package"/>
+        <Constructor visibility="package">
+          <Argument type="Miner" name="miner"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="enterCondition" returnType="boolean" visibility="public"/>
+        <Method name="enter" returnType="void" visibility="public">
+          <Argument type="LocationEnum" name="prevlocation"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="exitCondition" returnType="boolean" visibility="public"/>
+        <Method name="exit" returnType="void" visibility="public"/>
+        <Method name="getTransitionArray" returnType="MinerStateEnum[]" visibility="public"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="State" package="FSM" visibility="public" isAbstract="true" xPosition="1022.0" yPosition="379.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="enterCondition" returnType="boolean" visibility="public" isAbstract="true"/>
+        <Method name="enter" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="LocationEnum" name="prevLocation"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public" isAbstract="true"/>
+        <Method name="exitCondition" returnType="boolean" visibility="public" isAbstract="true"/>
+        <Method name="exit" returnType="void" visibility="public" isAbstract="true"/>
+        <Method name="getTransitionArray" returnType="MinerStateEnum[]" visibility="public" isAbstract="true"/>
+        <Method name="getLocation" returnType="LocationEnum" visibility="public" isAbstract="true"/>
+        <Method name="debugEnterCondition" returnType="void" visibility="public">
+          <Argument type="String" name="state"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="StateMachine" package="FSM" visibility="public" isAbstract="true" xPosition="539.0" yPosition="19.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="update" returnType="void" visibility="public" isAbstract="true"/>
+        <Method name="changeState" returnType="void" visibility="protected" isAbstract="true">
+          <Argument type="State" name="s"/>
+        </Method>
+        <Method name="revertToPreviousState" returnType="void" visibility="protected" isAbstract="true"/>
+        <Method name="getCurrentState" returnType="State" visibility="protected" isAbstract="true"/>
+        <Method name="getPreviousState" returnType="State" visibility="protected" isAbstract="true"/>
+        <Method name="setCurrentState" returnType="void" visibility="protected" isAbstract="true">
+          <Argument type="State" name="s"/>
+        </Method>
+        <Method name="setPreviousState" returnType="void" visibility="protected" isAbstract="true">
+          <Argument type="State" name="s"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Enum name="EntityEnum" package="FSM" visibility="public" xPosition="331.0" yPosition="43.0">
+      <Literals>
+        <Literal name="MINER_BOB"/>
+        <Literal name="ELSA"/>
+      </Literals>
+    </Enum>
+    <Enum name="LocationEnum" package="FSM" visibility="public" xPosition="1875.0" yPosition="265.0">
+      <Literals>
+        <Literal name="SHACK"/>
+        <Literal name="GOLDMINE"/>
+        <Literal name="BANK"/>
+        <Literal name="SALOON"/>
+      </Literals>
+    </Enum>
+    <Enum name="MinerStateEnum" package="FSM.MinerStates" visibility="public" xPosition="846.0" yPosition="19.0">
+      <Literals>
+        <Literal name="DIG_NUGGET"/>
+        <Literal name="EATING"/>
+        <Literal name="GO_HOME"/>
+        <Literal name="QUENCH_THIRST"/>
+        <Literal name="VISIT_BANK"/>
+        <Literal name="SLEEP"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="FSM.State" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="entity" source="FSM.GameEntity" target="FSM.EntityEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="location" source="FSM.MinerStates.QuenchThirst" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.DigNugget" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="miner" source="FSM.MinerStates.QuenchThirst" target="FSM.Miner" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="location" source="FSM.MinerStates.DigNugget" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.VisitBank" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.GoHome" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.Eating" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="miner" source="FSM.MinerStates.GoHome" target="FSM.Miner" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="miner" source="FSM.MinerStates.VisitBank" target="FSM.Miner" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.DigNugget" target="FSM.State"/>
+    <IsRelation name="is" source="FSM.MinerStates.Sleep" target="FSM.State"/>
+    <HasRelation name="miner" source="FSM.MinerStates.MinerStateMachine" target="FSM.Miner" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.StateMachine" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.VisitBank" target="FSM.State"/>
+    <IsRelation name="is" source="FSM.MinerStates.QuenchThirst" target="FSM.State"/>
+    <UseRelation source="FSM.State" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="location" source="FSM.MinerStates.GoHome" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="miner" source="FSM.MinerStates.Eating" target="FSM.Miner" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="previousState" source="FSM.MinerStates.MinerStateMachine" target="FSM.State" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.VisitBank" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.MinerStateMachine" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="location" source="FSM.MinerStates.Sleep" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.Eating" target="FSM.State"/>
+    <HasRelation name="miner" source="FSM.MinerStates.Sleep" target="FSM.Miner" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.GoHome" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.Miner" target="FSM.GameEntity"/>
+    <UseRelation source="FSM.MinerStates.DigNugget" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.QuenchThirst" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.GoHome" target="FSM.State"/>
+    <UseRelation source="FSM.MinerStates.Sleep" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.QuenchThirst" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="stateMap" source="FSM.MinerStates.MinerStateMachine" target="FSM.State" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;MinerStateEnum, State&gt;"/>
+    <HasRelation name="currentState" source="FSM.MinerStates.MinerStateMachine" target="FSM.State" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.MinerStates.Eating" target="FSM.State" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="location" source="FSM.MinerStates.Eating" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="FSM.MinerStates.MinerStateMachine" target="FSM.StateMachine"/>
+    <UseRelation source="FSM.MinerStates.Sleep" target="FSM.LocationEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="location" source="FSM.MinerStates.VisitBank" target="FSM.LocationEnum" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="miner" source="FSM.MinerStates.DigNugget" target="FSM.Miner" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="FSM.GameEntity" target="FSM.EntityEnum" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

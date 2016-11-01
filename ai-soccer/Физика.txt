@@ -1,0 +1,126 @@
+ /**
+     * plusForce - это plusVelocityTact - расчётное приращение скорости за такт или accelerationTact
+     * player.getMaxForce() - это maxPlusVelocityTact (maxAccelerationTact) - максимальное приращение скорости за такт, т.е. максимальное ускорение за такт
+     * maxAccelerationTact должно расчитываться исходя из максимального ускорения людей в секунду, 
+     * поделённого на коэффициент массы человека.
+     * maxAccelerationTact = maxAcceleration/coeffMass*TimeTact
+     * maxAcceleration = 4 м/с2
+     * coeffMass = massa/100; 70кг/100 = 0.7
+     */
+	 
+	Все поведения расчитывают по факту не силу, а величину приращения скорости за момент времени(за такт). 
+	Фактически это ускорение за такт accelerationTact (м/с * tact). 
+	Максимальное ускорение человека можно приблизительно оценить как MAX_ACCELERATION = 3-4 м/c2
+	maxAccelerationTact = PLAYER_MAX_ACCELERATION * TIME_TACT
+	
+	Сила пропорциональна ускорению и если представить, что все игроки имеют одинаковую массу 100 кг, 
+	то это ускорение помножив на 100 превращаем в силу: 
+	maxForce = maxAccelerationTact * 100 = PLAYER_MAX_ACCELERATION * 100 * TIME_TACT;
+	
+	Тогда действительное ускорение игрока с учётом его массы:
+	realAccelerationTact = maxForce/PLAYER_MASS = PLAYER_MAX_ACCELERATION * 100 * TIME_TACT / PLAYER_MASS
+	
+	Скорость игрока за такт тогда можно расчитать:
+		velocityTact = velocityTact + realAccelerationTact = velocityTact + PLAYER_MAX_ACCELERATION * 100 * TIME_TACT / PLAYER_MASS
+		
+	У каждого человека может быть своё максимальное ускорение, поэтому 	PLAYER_MAX_ACCELERATION индивидуален для каждого игрока,
+	и таким образом в формировании ускорения игрока будут учавствовать две индивидуальные параметра-константы игрока:
+		- PLAYER_MAX_ACCELERATION можно просто PLAYER_ACCELERATION
+		- PLAYER_MASS
+		
+	Исходя из этих рассуждений, сила как таковая в расчётах не применяется, но для реальности параметров и чистоты и понятности кода,
+	надо ввести расчётный параметр-константу для игрока :
+		- PLAYER_COEFF_FORCE = 100;
+		- PLAYER_MASS_FORCE = PLAYER_COEFF_FORCE/PLAYER_MASS;
+		
+			
+	Константы-параметры:
+		private double PLAYER_ACCELERATION = 3;  m/c 
+		public double PLAYER_ACCELERATION_TACT = PLAYER_ACCELERATION * TIME_TACT;
+		public double PLAYER_MASS = 70; кг
+		private double PLAYER_COEFF_FORCE = 100; условный делитель
+		// этот параметр надо расчитывать индивидуально для каждого игрока, потому что параметр PLAYER_MASS передаётся объекту игрока
+		public double PLAYER_MASS_FORCE = PLAYER_COEFF_FORCE/PLAYER_MASS;
+		
+	Формулы для расчёта скорости:
+		velocityTact = velocityTact + PLAYER_ACCELERATION_TACT * PLAYER_MASS_FORCE
+		
+		
+		
+	В каждом такте поведенческое ускорение будет сравниваться с PLAYER_ACCELERATION_TACT в accumulateForce() на превышение.
+	Все методы, поля и переменные переименовать на acceleration.
+		
+		
+	Arrive:
+
+	При приближении к точке на расстояние ARRIVE_DIST_DECELERATION = 2 м начинать равномерное замедление.
+	Фактически ARRIVE_DIST_DECELERATION и будет определять величину замедления
+	
+	dist = (Vmax - V0) * tacts = Vmax/2 * tacts
+	Vmax = player.getMaxSpeed()
+	
+	Vmax = 2*ARRIVE_DIST_DECELERATION/tacts	
+	
+	Максимальная скорость пропорциональна расстоянию до точки (distToTarget < ARRIVE_DIST_DECELERATION):
+	ARRIVE_DIST_DECELERATION - player.getMaxSpeed()
+	distToTarget - desirebleVel	
+	
+	
+	/*
+	* темп замедления будет определяться дистанцией до точки и максимальной скоростью игрока
+	* @param distDeceleration в общем случае = ARRIVE_DIST_DECELERATION, но в разных игровых ситуациях может меняться(задаваться)
+	*/	
+	private Vector arrive(Vector target, double distDeceleration) {
+	
+		Vector toTarget = target.subn(player.getPosition());
+		double distToTarget = toTarget.length();
+		
+		// Условие достижения дистанции замедления
+		if (distToTarget < distDeceleration) {
+			double maxVelocityLength = player.getMaxSpeed() * distToTarget/distDeceleration;
+			// Условие замедления:
+			if ( player.getVelocity().length > maxVelocityLength) {
+				Vector desirebleVel = toTarget.normalize() * maxVelocityLength;
+				return getVelocity().subn(desirebleVel);
+			}
+		}	
+		// в противном случе seek(target) - движение в точку с максимальной скоростью без замедления:	
+		return toTarget.normalize().mul(player.getMaxSpeed());
+	
+	}	
+	
+	Проблема - в точку игрок приходит с нулевой скоростью, что может вызвать проблему позиционирования в точку,
+	поэтому лучше дать игроку минимальную скорость в точке позиционирования (0.1 * player.getMaxSpeed())
+	/**
+	 * Темп замедления будет определяться дистанцией до точки и максимальной скоростью игрока.
+	 * Замедление происходит равномерно с дистанции distDeceleration до точки до скорости coeffRemainingVelocity * player.getMaxSpeed().
+	 * @param distDeceleration - в общем случае равен ARRIVE_DIST_DECELERATION, но в разных игровых ситуациях может меняться(задаваться)
+	 * @param coeffRemainingVelocity - в общем случае равен ARRIVE_COEFF_REMAINING_VELOCITY = 0.1, но в разных игровых ситуациях может меняться(задаваться)
+	 */
+	private Vector arrive(Vector target, double distDeceleration, double coeffRemainingVelocity) {	
+		Vector toTarget = target.subn(player.getPosition());
+        Vector toTargetNormalize = toTarget.normalizen();
+        
+		double distToTarget = toTarget.length();
+		double distDecelerationPlus = coeffRemainingVelocity * distDeceleration;
+		
+		// Условие достижения дистанции замедления
+		if (distToTarget < distDeceleration) {
+			double maxVelocity = player.getMaxSpeed() * (distToTarget + distDecelerationPlus)/(distDeceleration + distDecelerationPlus);
+			// Условие замедления:
+			if ( player.getVelocity().length() > maxVelocity) {
+				return player.getVelocity().subn(toTargetNormalize.mul(maxVelocity));
+			}
+		}	
+		// в противном случе seek(target) - движение в точку с максимальной скоростью без замедления:	
+		return toTargetNormalize.mul(player.getMaxSpeed());	
+	}
+    private Vector arrive(Vector target) {
+        return arrive(target, Params.ARRIVE_DIST_DECELERATION, Params.ARRIVE_COEFF_REMAINING_VELOCITY);
+    }	
+		
+		
+		
+		
+		
+		
